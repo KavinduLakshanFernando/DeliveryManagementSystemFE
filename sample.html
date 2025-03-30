@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distance Calculator</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Calculate Distance Between Two Locations</h2>
+
+<label for="origin">Enter Starting Location:</label>
+<input type="text" id="origin" placeholder="Enter start location">
+
+<label for="destination">Enter Destination:</label>
+<input type="text" id="destination" placeholder="Enter destination">
+
+<button onclick="calculateDistance()">Get Distance</button>
+
+<p id="output"></p>
+
+<div id="map"></div>
+
+<script>
+    function initMap() {
+        // Default location (Colombo)
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 6,
+            center: { lat: 6.9271, lng: 79.8612 },
+        });
+    }
+
+    function calculateDistance() {
+        var origin = document.getElementById("origin").value;
+        var destination = document.getElementById("destination").value;
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+            {
+                origins: [origin],
+                destinations: [destination],
+                travelMode: "DRIVING", // You can change this to WALKING, BICYCLING, TRANSIT
+            },
+            function(response, status) {
+                if (status === "OK") {
+                    var distance = response.rows[0].elements[0].distance.text;
+                    var duration = response.rows[0].elements[0].duration.text;
+                    document.getElementById("output").innerHTML =
+                        "Distance: " + distance + "<br>Estimated Time: " + duration;
+                } else {
+                    alert("Error: " + status);
+                }
+            }
+        );
+    }
+</script>
+
+ Load Google Maps API
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyJeZ8mTaOJj6JcUqXiE959B3BypbJqN8&callback=initMap"
+
+        async
+        defer>
+</script>
+
+<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyJeZ8mTaOJj6JcUqXiE959B3BypbJqN8-->
+<!--&callback=initMap"></script>-->
+
+
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Management System - Driver Home</title>
+  <style>
+    :root {
+      --primary: #1e88e5;
+      --primary-dark: #1565c0;
+      --secondary: #4caf50;
+      --danger: #f44336;
+      --warning: #ff9800;
+      --background: #f5f7fa;
+      --card: #ffffff;
+      --text: #333333;
+      --text-light: #757575;
+      --border: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+
+    .button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .button.secondary {
+      background-color: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .button.secondary:hover {
+      background-color: rgba(30, 136, 229, 0.1);
+    }
+
+    .status-bar {
+      background-color: var(--card);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--secondary);
+    }
+
+    .status-text {
+      font-weight: 500;
+    }
+
+    .card {
+      background-color: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+      background-color: var(--card);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .delivery-item {
+      display: flex;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .delivery-item:last-child {
+      border-bottom: none;
+    }
+
+    .delivery-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: rgba(30, 136, 229, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .delivery-details {
+      flex: 1;
+    }
+
+    .delivery-address {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .delivery-meta {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .delivery-status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background-color: rgba(255, 152, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .status-in-progress {
+      background-color: rgba(30, 136, 229, 0.1);
+      color: var(--primary);
+    }
+
+    .status-completed {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--secondary);
+    }
+
+    .map-container {
+      height: 300px;
+      background-color: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .map-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .tab {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab.active {
+      border-bottom-color: var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .navigation {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--card);
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .stats-container {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .header-controls {
+        gap: 0.5rem;
+      }
+
+      .status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+
+      .delivery-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">DeliveryPro</div>
+  <div class="header-controls">
+    <div class="user-info">
+      <div class="avatar">JD</div>
+      <span>John Doe</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="status-bar">
+    <div class="status">
+      <div class="status-indicator"></div>
+      <div class="status-text">Online - Available for Deliveries</div>
+    </div>
+    <button class="button secondary">Go Offline</button>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-label">Today's Deliveries</div>
+      <div class="stat-value">7/12</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Earnings Today</div>
+      <div class="stat-value">$87.50</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg. Delivery Time</div>
+      <div class="stat-value">18 min</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Rating</div>
+      <div class="stat-value">4.9 ★</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Current Delivery</div>
+      <button class="button">Navigate</button>
+    </div>
+    <div class="card-content">
+      <div class="map-container">
+        <div class="map-placeholder">
+          [Interactive Map - Current Delivery Route]
+        </div>
+      </div>
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">123 Main Street, Apt 4B</div>
+          <div class="delivery-meta">
+            <span>Order #5789</span>
+            <span>ETA: 10 min</span>
+            <span>3.2 miles</span>
+          </div>
+        </div>
+        <div class="delivery-status status-in-progress">In Progress</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Upcoming Deliveries</div>
+      <button class="button secondary">View All</button>
+    </div>
+    <div class="tabs">
+      <div class="tab active">Today (5)</div>
+      <div class="tab">Scheduled (2)</div>
+    </div>
+    <div class="card-content" style="padding: 0;">
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">456 Oak Avenue</div>
+          <div class="delivery-meta">
+            <span>Order #5790</span>
+            <span>1.8 miles</span>
+          </div>
+        </div>
+        <div class="delivery-status status-pending">Pending</div>
+      </div>
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">789 Pine Street, Suite 3</div>
+          <div class="delivery-meta">
+            <span>Order #5791</span>
+            <span>2.4 miles</span>
+          </div>
+        </div>
+        <div class="delivery-status status-pending">Pending</div>
+      </div>
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">101 Maple Road</div>
+          <div class="delivery-meta">
+            <span>Order #5792</span>
+            <span>3.7 miles</span>
+          </div>
+        </div>
+        <div class="delivery-status status-pending">Pending</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Completed Today</div>
+    </div>
+    <div class="card-content" style="padding: 0;">
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">222 Cedar Lane</div>
+          <div class="delivery-meta">
+            <span>Order #5785</span>
+            <span>Completed at 2:15 PM</span>
+          </div>
+        </div>
+        <div class="delivery-status status-completed">Completed</div>
+      </div>
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">333 Elm Street</div>
+          <div class="delivery-meta">
+            <span>Order #5786</span>
+            <span>Completed at 1:30 PM</span>
+          </div>
+        </div>
+        <div class="delivery-status status-completed">Completed</div>
+      </div>
+      <div class="delivery-item">
+        <div class="delivery-icon">📦</div>
+        <div class="delivery-details">
+          <div class="delivery-address">444 Birch Boulevard</div>
+          <div class="delivery-meta">
+            <span>Order #5787</span>
+            <span>Completed at 11:45 AM</span>
+          </div>
+        </div>
+        <div class="delivery-status status-completed">Completed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="navigation">
+  <a href="#" class="nav-item active">
+    <div class="nav-icon">🏠</div>
+    <span>Home</span>
+  </a>
+  <a href="#" class="nav-item">
+    <div class="nav-icon">📦</div>
+    <span>Deliveries</span>
+  </a>
+  <a href="#" class="nav-item">
+    <div class="nav-icon">📊</div>
+    <span>Earnings</span>
+  </a>
+  <a href="#" class="nav-item">
+    <div class="nav-icon">⚙️</div>
+    <span>Settings</span>
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Registration - Delivery Service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: #f8f9fa;
+        }
+        .header-banner {
+            background-color: #0d6efd;
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #dee2e6;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            background-color: #f8f9fa;
+        }
+        :root {
+            --primary-color: #2563eb;
+            --hover-color: #1d4ed8;
+            --text-color: #1f2937;
+            --light-bg: #f9fafb;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        .navbar {
+            padding: 15px 0;
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent !important;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0 12px;
+            padding: 8px 12px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+            background-color: rgba(37, 99, 235, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color) !important;
+            background-color: rgba(37, 99, 235, 0.12);
+            font-weight: 600;
+        }
+
+        .notification-icon {
+            position: relative;
+            padding: 8px 12px !important;
+            border-radius: 50% !important;
+            height: 40px;
+            width: 40px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            margin-right: 5px;
+        }
+
+        .badge-notification {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border: 2px solid white;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        .profile-icon {
+            height: 40px;
+            width: 40px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50% !important;
+            color: var(--text-color) !important;
+            background-color: var(--light-bg);
+            border: 2px solid rgba(0, 0, 0, 0.05);
+            padding: 0 !important;
+            transition: all 0.2s ease;
+        }
+
+        .profile-icon:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color) !important;
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 12px;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-weight: 500;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            margin: 8px 0;
+            opacity: 0.1;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            background-color: var(--light-bg);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: 2px solid rgba(37, 99, 235, 0.5);
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: white;
+                padding: 20px;
+                border-radius: 16px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                margin-top: 15px;
+            }
+
+            .nav-item {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">TurboTrack</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tracking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link notification-icon" href="#">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge-notification">3</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link profile-icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-truck"></i> My Orders</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="header-banner">
+    <div class="container">
+        <h1 class="text-center">Vehicle Registration Portal</h1>
+        <p class="text-center mb-0">Register your vehicle for delivery services</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <form id="vehicleRegistrationForm">
+        <!-- Driver Information -->
+        <div class="form-section">
+            <h3>Driver Information</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="username" class="form-label">UserName</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- License Information -->
+        <div class="form-section">
+            <h3>Driver's License Information</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="licenseNumber" class="form-label">License Number</label>
+                    <input type="text" class="form-control" id="licenseNumber" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="licenseExpiration" class="form-label">Expiration Date</label>
+                    <input type="date" class="form-control" id="licenseExpiration" required>
+                </div>
+                <div class="col-12">
+                    <label for="licenseImage" class="form-label">Upload License Image (Front)</label>
+                    <div class="image-preview" id="licenseImagePreview">
+                        <span>Preview will be shown here</span>
+                    </div>
+                    <input type="file" class="form-control" id="licenseImage" accept="image/*" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle Information -->
+        <div class="form-section">
+            <h3>Vehicle Information</h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="vehicleModel" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="vehicleModel" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="vehicleYear" class="form-label">Year</label>
+                    <input type="number" class="form-control" id="vehicleYear" min="1990" max="2025" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="licensePlate" class="form-label">License Plate Number</label>
+                    <input type="text" class="form-control" id="licensePlate" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="insuranceCompany" class="form-label">Insurance Company</label>
+                    <input type="text" class="form-control" id="insuranceCompany" required>
+                </div>
+                <div class="col-12">
+                    <label for="vehicleImage" class="form-label">Upload Vehicle Image</label>
+                    <div class="image-preview" id="vehicleImagePreview">
+                        <span>Preview will be shown here</span>
+                    </div>
+                    <input type="file" class="form-control" id="vehicleImage" accept="image/*" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submission -->
+        <div class="d-grid gap-2 col-6 mx-auto mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Submit Registration</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!--<script>-->
+<!--    // Simple preview functionality for uploaded images-->
+<!--    function setupImagePreview(inputId, previewId) {-->
+<!--        document.getElementById(inputId).addEventListener('change', function(event) {-->
+<!--            const file = event.target.files[0];-->
+<!--            if (file) {-->
+<!--                const reader = new FileReader();-->
+<!--                reader.onload = function(e) {-->
+<!--                    const previewElement = document.getElementById(previewId);-->
+<!--                    previewElement.innerHTML = '';-->
+<!--                    const img = document.createElement('img');-->
+<!--                    img.src = e.target.result;-->
+<!--                    img.className = 'img-fluid';-->
+<!--                    img.style.maxHeight = '100%';-->
+<!--                    previewElement.appendChild(img);-->
+<!--                }-->
+<!--                reader.readAsDataURL(file);-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Set up image previews-->
+<!--    setupImagePreview('licenseImage', 'licenseImagePreview');-->
+<!--    setupImagePreview('vehicleImage', 'vehicleImagePreview');-->
+<!--    setupImagePreview('registrationImage', 'registrationImagePreview');-->
+<!--    setupImagePreview('insuranceImage', 'insuranceImagePreview');-->
+
+<!--    // Form submission-->
+<!--    document.getElementById('vehicleRegistrationForm').addEventListener('submit', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        alert('Form submitted successfully! Your registration is being processed.');-->
+<!--        // In a real application, you would send the form data to your server here-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>
