@@ -1,10 +1,9 @@
-
-
+console.log("login form");
 $(document).ready(function () {
     $("#loggin").click(() => {
 
-        let email = $("#email2").val();
-        let password = $("#password2").val();
+        let email = $("#email").val();
+        let password = $("#password").val();
 
         $.ajax({
             url: "http://localhost:8080/api/v1/auth/authenticate",
@@ -26,18 +25,22 @@ $(document).ready(function () {
                 localStorage.setItem("userEmail", email);
                 localStorage.setItem("Role", rolee);
                 localStorage.setItem("name", name);
+                localStorage.setItem("LoggedUserId", uid);
 
-
+                console.log("userID", uid)
                 console.log(Authtoken)
-            console.log(rolee)
-                // window.location.href="../AdminDashboard.html";
+                console.log(rolee)
+
 
                 if ( rolee === "ADMIN") {
-                    window.location.href="../AdminDashboard.html"
+                    window.location.href="./AdminDashboard.html"
+                    alert("Admin")
                 } else if (rolee === "DRIVER") {
-                    window.location.assign("../DriverDashboard.html");
-                } else if (rolee === "USER") {
-                    // window.location.assign("../AdminDashboard.html");
+                    window.location.href="./DriverRegistration.html"
+                    alert("Driver")
+                } else if (rolee === "CUSTOMER") {
+                    window.location.href="./CustomerRegistration.html"
+                    alert("Customer")
                 } else {
                     alert("Unknown role. Redirecting to home.");
 

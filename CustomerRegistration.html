@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Registration - Delivery Management System</title>
+    <title>Customer Registration - Delivery Management System</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -225,10 +225,10 @@
 <body>
 <div class="container">
     <header>
-        <h1>Vehicle Registration</h1>
+        <h1>Customer Registration</h1>
     </header>
 
-    <form id="driverRegistrationForm" class="form-container" novalidate>
+    <form id="CustomerRegistrationForm" class="form-container" novalidate>
         <div class="form-section">
             <h2 class="section-title">Personal Information</h2>
 
@@ -248,85 +248,36 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="email" class="required">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                    <span class="error-message">Please enter a valid email address</span>
+                    <label for="dateOfBirth" class="required">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                    <span class="error-message">Date of birth is required (must be 18+ years old)</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" class="required">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}">
-                    <span class="error-message">Please enter a valid phone number (10-15 digits)</span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                    <div class="form-group">
-                        <label for="streetAddress" class="required">Street Address</label>
-                        <input type="text" id="streetAddress" name="streetAddress" required minlength="5" maxlength="100">
-                        <span class="error-message">Street address is required (5-100 characters)</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city" class="required">City</label>
-                        <input type="text" id="city" name="city" required minlength="2" maxlength="50">
-                        <span class="error-message">City is required (2-50 characters)</span>
-                    </div>
-            </div>
-
-        <div class="form-section">
-            <h2 class="section-title">Vehicle Information</h2>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="vehicleType" class="required">Vehicle Type</label>
-                    <input type="text" id="vehicleType" name="vehicleMake" required minlength="2" maxlength="50">
-                    <span class="error-message">Vehicle make is required</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="vehicleModel" class="required">Vehicle Model</label>
-                    <input type="text" id="vehicleModel" name="vehicleModel" required minlength="2" maxlength="50">
-                    <span class="error-message">Vehicle model is required</span>
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        <option value="prefer_not_to_say">Prefer not to say</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="vehicleYear" class="required">Vehicle Year</label>
-                    <input type="number" id="vehicleYear" name="vehicleYear" required min="1990" max="2030">
-                    <span class="error-message">Valid vehicle year is required (1990-2030)</span>
+                    <label for="streetAddress" class="required">Street Address</label>
+                    <input type="text" id="streetAddress" name="streetAddress" required minlength="5" maxlength="100">
+                    <span class="error-message">Street address is required (5-100 characters)</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="vehicleColor">Vehicle Color</label>
-                    <input type="text" id="vehicleColor" name="vehicleColor" maxlength="20">
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="licensePlate" class="required">License Plate Number</label>
-                    <input type="text" id="licensePlate" name="licensePlate" required minlength="2" maxlength="15">
-                    <span class="error-message">License plate number is required</span>
+                    <label for="city" class="required">City</label>
+                    <input type="text" id="city" name="city" required minlength="2" maxlength="50">
+                    <span class="error-message">City is required (2-50 characters)</span>
                 </div>
 
-                <div class="form-group">
-                    <label for="insuranceExpiry" class="required">Insurance Expiration Date</label>
-                    <input type="date" id="insuranceExpiry" name="insuranceExpiry" required>
-                    <span class="error-message">Valid future expiration date is required</span>
-                </div>
-            </div>
-
-        <div class="form-section">
-            <h2 class="section-title">Agreement</h2>
-
-            <div class="checkbox-group">
-                <label class="checkbox-label">
-                        <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
-                    I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
-                </label>
-                <span class="error-message">You must agree to the terms to continue</span>
             </div>
         </div>
 
@@ -336,8 +287,7 @@
         </div>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="jq/jquery-3.7.1.min.js"></script>
-<script src="JavaScript/UserDetails.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

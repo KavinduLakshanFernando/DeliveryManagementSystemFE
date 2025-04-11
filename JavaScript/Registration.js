@@ -1,93 +1,56 @@
-// $("#nextBtn").on("click", function() {
-//     console.log("Register button");
-//     let name = $("#name").val();
-//     let userName = $("#username").val();
-//     let nic = $("#nic").val();
-//     let phone = $("#mobile").val();
-//     let email = $("#email").val();
-//     let address = $("#address").val();
-//     let password = $("#password").val();
-//     let ConfirmPassword = $("#confirm-password").val();
-//
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/user/register',
-//         method: 'POST',
-//         contentType: 'application/json',  // Set content type to JSON
-//         data: JSON.stringify({
-//             name: name,
-//             username:userName,
-//             nic: nic,
-//             phone: phone,
-//             email: email,
-//             address: address,
-//             password: password,
-//             confirmPassword: ConfirmPassword
-//         }),
-//         success: function(data) {
-//             if (password === ConfirmPassword) {
-//                 alert("Registration successful!");
-//             }else {
-//                 alert("Password does not match!");
-//             }
-//
-//         },
-//         error: function(xhr, status, error) {
-//             // Handle errors
-//         }
-//     });
-// });
+$('.hero-buttons a').on('click', function (e) {
+    e.preventDefault();
+    selectedRole = $(this).data('role');
+    console.log("Selected Role:", selectedRole);
+});
 
+// Registration form submit with SweetAlert
+$('#regbtn').on('click', function (e) {
+    e.preventDefault();
 
-$("#nextBtn").on("click", function() {
-    console.log("Register button");
-    let name = $("#name").val();
-    let userName = $("#username").val();
-    let nic = $("#nic").val();
-    let phone = $("#mobile").val();
-    let email = $("#email").val();
-    let address = $("#address").val();
-    let password = $("#password").val();
-    let ConfirmPassword = $("#confirm-password").val();
+    const email = $('#email').val();
+    const password = $('#password').val();
+    const confirmPassword = $('#confirmPassword').val();
+    const phone = $('#phone').val();
 
-    // Check if passwords match before sending the request
-    if (password !== ConfirmPassword) {
-        // Use SweetAlert2 to show a password mismatch error
+    if (password !== confirmPassword) {
         Swal.fire({
-            icon: 'error',
+            icon: 'warning',
             title: 'Oops...',
-            text: 'Passwords do not match!',
+            text: 'Passwords do not match!'
         });
-        return;  // Prevent further execution if passwords do not match
+        return;
     }
 
+    const userData = {
+        email: email,
+        password: password,
+        phone: phone,
+        role: selectedRole
+    };
+
     $.ajax({
-        url: 'http://localhost:8080/api/v1/user/register',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            name: name,
-            username: userName,
-            nic: nic,
-            phone: phone,
-            email: email,
-            address: address,
-            password: password,
-            confirmPassword: ConfirmPassword
-        }),
-        success: function(data) {
-            // Use SweetAlert2 to show success message
+        url: "http://localhost:8080/api/v1/user/register",
+        method: "POST",
+        data: JSON.stringify(userData),
+        contentType: "application/json",
+        success: function () {
             Swal.fire({
                 icon: 'success',
-                title: 'Registration Successful',
-                text: 'You have been registered successfully!',
-            })
+                title: 'Registered Successfully!',
+                text: 'Redirecting to login...',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "../LoginForm.html";
+            });
         },
-        error: function(xhr, status, error) {
-            // Handle error with SweetAlert2
+        error: function (xhr) {
+            const errorMessage = xhr.responseJSON?.message || "Registration failed.";
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'Something went wrong during registration. Please try again.',
+                title: 'Registration Failed',
+                text: errorMessage
             });
         }
     });
