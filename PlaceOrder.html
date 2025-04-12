@@ -53,8 +53,8 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Description" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="Description" required>
+                                    <label for="ReceiverContact" class="form-label">Receiver Contact</label>
+                                    <input type="text" class="form-control" id="ReceiverContact" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="deliveryDate" class="form-label">Delivery Date</label>
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="status" class="form-label">Status</label>
-                                    <select class="form-select" id="status" required>
+                                    <select class="form-select" id="status" required disabled>
                                         <option value="Pending">Pending</option>
 <!--                                        <option value="Processing">Comfirmed</option>-->
 <!--                                        <option value="Delivered">Delivered</option>-->
@@ -102,7 +102,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="button" class="btn btn-success ms-2">Place Order</button>
+                            <button id="Orderbtn" type="button" class="btn btn-success ms-2">Place Order</button>
                         </div>
                     </form>
                 </div>
@@ -118,6 +118,7 @@
 </div>
 
 <!-- Scripts -->
+<script src="jq/jquery-3.7.1.min.js"></script>
 <script>
     let map, directionsService, directionsRenderer;
 
@@ -202,5 +203,6 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbJw1DZky2FxqwriREnp9yPpBW1RHu_3g&libraries=places&callback=initMap">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="JavaScript/ManageOrders.js"></script>
 </body>
 </html>

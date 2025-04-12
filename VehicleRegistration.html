@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Registration - Delivery Management System</title>
+    <title>Vehcle Registration - Delivery Management System</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -229,50 +229,50 @@
     </header>
 
     <form id="driverRegistrationForm" class="form-container" novalidate>
-        <div class="form-section">
-            <h2 class="section-title">Personal Information</h2>
+    <div class="form-section">
+        <h2 class="section-title">Personal Information</h2>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="firstName" class="required">First Name</label>
-                    <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50">
-                    <span class="error-message">First name is required (2-50 characters)</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName" class="required">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50">
-                    <span class="error-message">Last name is required (2-50 characters)</span>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="firstName" class="required">First Name</label>
+                <input type="text" id="firstName" name="firstName" required minlength="2" maxlength="50">
+                <span class="error-message">First name is required (2-50 characters)</span>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="email" class="required">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                    <span class="error-message">Please enter a valid email address</span>
-                </div>
+            <div class="form-group">
+                <label for="lastName" class="required">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required minlength="2" maxlength="50">
+                <span class="error-message">Last name is required (2-50 characters)</span>
+            </div>
+        </div>
 
-                <div class="form-group">
-                    <label for="phone" class="required">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}">
-                    <span class="error-message">Please enter a valid phone number (10-15 digits)</span>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email" class="required">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message">Please enter a valid email address</span>
             </div>
 
-            <div class="form-row">
-                    <div class="form-group">
-                        <label for="streetAddress" class="required">Street Address</label>
-                        <input type="text" id="streetAddress" name="streetAddress" required minlength="5" maxlength="100">
-                        <span class="error-message">Street address is required (5-100 characters)</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city" class="required">City</label>
-                        <input type="text" id="city" name="city" required minlength="2" maxlength="50">
-                        <span class="error-message">City is required (2-50 characters)</span>
-                    </div>
+            <div class="form-group">
+                <label for="phone" class="required">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}">
+                <span class="error-message">Please enter a valid phone number (10-15 digits)</span>
             </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="streetAddress" class="required">Street Address</label>
+                <input type="text" id="streetAddress" name="streetAddress" required minlength="5" maxlength="100">
+                <span class="error-message">Street address is required (5-100 characters)</span>
+            </div>
+
+            <div class="form-group">
+                <label for="city" class="required">City</label>
+                <input type="text" id="city" name="city" required minlength="2" maxlength="50">
+                <span class="error-message">City is required (2-50 characters)</span>
+            </div>
+        </div>
 
         <div class="form-section">
             <h2 class="section-title">Vehicle Information</h2>
@@ -318,26 +318,29 @@
                 </div>
             </div>
 
-        <div class="form-section">
-            <h2 class="section-title">Agreement</h2>
+            <div class="form-section">
+                <h2 class="section-title">Agreement</h2>
 
-            <div class="checkbox-group">
-                <label class="checkbox-label">
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
                         <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
-                    I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
-                </label>
-                <span class="error-message">You must agree to the terms to continue</span>
+                        I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                    <span class="error-message">You must agree to the terms to continue</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="secondary">Clear Form</button>
+                <button type="button" id="registerDriver" class="primary">Submit Registration</button>
             </div>
         </div>
-
-        <div class="button-group">
-            <button type="button" class="secondary">Clear Form</button>
-            <button type="button" id="registerDriver" class="primary">Submit Registration</button>
-        </div>
-    </form>
+    </div>
+</form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="jq/jquery-3.7.1.min.js"></script>
+
 <script src="JavaScript/UserDetails.js"></script>
 </body>
 </html>

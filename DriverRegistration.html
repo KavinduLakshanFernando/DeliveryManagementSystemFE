@@ -358,140 +358,15 @@
             </div>
         </div>
 
-        <div class="form-section">
-            <h2 class="section-title">Agreement</h2>
-
-            <div class="checkbox-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
-                    I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
-                </label>
-                <span class="error-message">You must agree to the terms to continue</span>
-            </div>
-        </div>
-
         <div class="button-group">
             <button type="button" class="secondary">Clear Form</button>
             <button type="button" id="registerDriver" class="primary">Submit Registration</button>
         </div>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-
-    // Form validation
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.getElementById('driverRegistrationForm');
-
-        // File upload preview
-        const licenseImageInput = document.getElementById('licenseImage');
-        const licenseImageText = document.getElementById('licenseImageText');
-
-        licenseImageInput.addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                licenseImageText.textContent = this.files[0].name;
-            } else {
-                licenseImageText.textContent = 'Upload image of your driver license';
-            }
-        });
-
-        // Date validation
-        const dobInput = document.getElementById('dateOfBirth');
-        dobInput.addEventListener('change', function() {
-            const today = new Date();
-            const birthDate = new Date(this.value);
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-
-            if (age < 18) {
-                this.setCustomValidity('You must be at least 18 years old');
-                this.classList.add('error');
-            } else {
-                this.setCustomValidity('');
-                this.classList.remove('error');
-            }
-        });
-
-        // License expiry validation
-        const licenseExpiryInput = document.getElementById('licenseExpiry');
-        licenseExpiryInput.addEventListener('change', function() {
-            const today = new Date();
-            const expiryDate = new Date(this.value);
-
-            if (expiryDate <= today) {
-                this.setCustomValidity('License must not be expired');
-                this.classList.add('error');
-            } else {
-                this.setCustomValidity('');
-                this.classList.remove('error');
-            }
-        });
-
-        // Insurance expiry validation
-        const insuranceExpiryInput = document.getElementById('insuranceExpiry');
-        insuranceExpiryInput.addEventListener('change', function() {
-            const today = new Date();
-            const expiryDate = new Date(this.value);
-
-            if (expiryDate <= today) {
-                this.setCustomValidity('Insurance must not be expired');
-                this.classList.add('error');
-            } else {
-                this.setCustomValidity('');
-                this.classList.remove('error');
-            }
-        });
-
-        // Form submission
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            // Validate all required fields
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-
-            requiredFields.forEach(field => {
-                if (!field.checkValidity()) {
-                    field.classList.add('error');
-                    isValid = false;
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-
-            if (isValid) {
-                // Replace with actual form submission logic
-                alert('Form submitted successfully! The data would be sent to the server.');
-                // form.submit();
-            }
-        });
-
-        // Input validation on blur
-        const inputs = form.querySelectorAll('input, select, textarea');
-        inputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                if (this.hasAttribute('required') || this.value.trim() !== '') {
-                    if (!this.checkValidity()) {
-                        this.classList.add('error');
-                    } else {
-                        this.classList.remove('error');
-                    }
-                }
-            });
-
-            input.addEventListener('input', function() {
-                if (this.checkValidity()) {
-                    this.classList.remove('error');
-                }
-            });
-        });
-    });
-</script>
 <script src="jq/jquery-3.7.1.min.js"></script>
-<script src="JavaScript/DriverManage.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="JavaScript/ManageDriver.js"></script>
 </body>
 </html>
