@@ -1,53 +1,199 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Show Current Location on Google Map</title>
     <style>
-        #map {
-            height: 400px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .filter {
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .search {
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            width: 250px;
+        }
+
+        table {
             width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background-color: #f3f4f6;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 16px;
+            font-weight: 500;
+            color: #374151;
+            font-size: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status {
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-delivered {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-in-transit {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-processing {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-failed {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .priority-high {
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .priority-medium {
+            color: #d97706;
+            font-weight: 500;
+        }
+
+        .priority-low {
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-button {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .pagination-button.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+
+        .action-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            color: #3b82f6;
+            margin-right: 8px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+<div class="container">
+    <div class="header">
+        <h1 class="title">Delivery Management</h1>
+        <button class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>New Order
+        </button>
+    </div>
 
-<h2>Get Your Current Location on Google Map</h2>
-<button onclick="initMap()">Get Location</button>
-
-<div id="map"></div>
-
-<script>
-    function initMap() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                const userLocation = { lat: lat, lng: lng };
-
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom: 15,
-                    center: userLocation,
-                });
-
-                const marker = new google.maps.Marker({
-                    position: userLocation,
-                    map: map,
-                    title: "You are here!",
-                });
-            }, function () {
-                alert("Geolocation failed or was denied.");
-            });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-</script>
-
-<!-- Load Google Maps JS API (Replace YOUR_API_KEY with your actual key) -->
-<script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbJw1DZky2FxqwriREnp9yPpBW1RHu_3g">
-</script>
-
+    <table>
+        <thead>
+        <tr>
+            <th>Delivery Address</th>
+            <th>Pickup Point</th>
+            <th>Delivery Date</th>
+            <th>Amount</th>
+            <th>Distance</th>
+            <th>Receiver</th>
+            <th>Priority</th>
+            <th>Vehicle</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

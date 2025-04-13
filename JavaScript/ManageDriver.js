@@ -1,3 +1,5 @@
+
+
 $('#registerDriver').on('click', function () {
     let userID = localStorage.getItem("LoggedUserId");
     console.log(userID);
@@ -55,3 +57,36 @@ $('#registerDriver').on('click', function () {
         alert("Please fill in all required fields.");
     }
 });
+
+
+loadDriverdataForAdmin();
+
+function loadDriverdataForAdmin() {
+    console.log("loadDriverdataForAdmin");
+    // let userID = localStorage.getItem("LoggedUserId");
+    // console.log(userID);
+    $.ajax({
+        url: "http://localhost:8080/api/v1/driver/allDrivers",
+        method: "GET",
+        success: function (data) {
+            $("#driverTableBody").empty();
+            data.forEach(driver => {
+                $("#driverTableBody").append(`
+                    <tr>
+                        <td>${driver.firstName}</td>
+                        <td>${driver.availability}</td>
+                        <td>${driver.experience}</td>
+                        <td>${driver.licenseNumber}</td>
+                        <td>${driver.preferredArea}</td>
+                        <td>${driver.licenseClass}</td>
+                        <td>${driver.licenseExpiry}</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                `);
+            });
+        },
+        error: function () {
+            alert("Failed to load drivers.");
+        }
+    });
+}

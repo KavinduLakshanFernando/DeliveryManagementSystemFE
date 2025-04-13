@@ -10,7 +10,7 @@ function getPendingOrders() {
             "Authorization": "Bearer " + localStorage.getItem("authToken")
         },
         success: function (orders) {
-            console.log(orders);
+            // console.log(orders);
             const container = $("#ordersCard");
             container.empty();
             // Clear previous cards
