@@ -32,7 +32,7 @@ $('#regCustomer').on('click', function () {
             success: function (response) {
                 console.log(response);
                 alert("Customer registered successfully!");
-                // window.location.href = "./CustomerRegistration.html";
+                window.location.href = "./CustomerDashBoard.html";
             },
             error: function (xhr, status, error) {
                 console.error(error);
