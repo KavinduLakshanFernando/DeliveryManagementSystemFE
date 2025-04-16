@@ -195,6 +195,10 @@
             transition: var(--transition);
             overflow: hidden;
         }
+        #addVehicle{
+            margin-top: 15px;
+            margin-left: 65rem;
+        }
 
         .order-card:hover {
             transform: translateY(-3px);
@@ -625,8 +629,8 @@
         </a>
 
         <ul class="nav-links">
-            <li><a href="AdminDashboard.html">All Orders</a></li>
-            <li><a href="UsersManageAdmin.html">My Orders</a></li>
+            <li><a href="#">All Orders</a></li>
+            <li><a href="#">My Orders</a></li>
             <li><a href="#">Profile</a></li>
         </ul>
 
@@ -649,6 +653,11 @@
     <!-- Blue separator line -->
     <div class="border-bottom border-primary border-3"></div>
 
+    <button id="addVehicle" class="btn btn-primary d-flex align-items-center gap-2 px-4 py-2 rounded-4 shadow">
+        <i class="fas fa-car"></i>
+        Add Vehicle
+    </button>
+
     <!-- All Orders Content -->
     <div class="container mt-4">
         <div class="page-header">
@@ -658,67 +667,17 @@
     </div>
 </div>
 
-<!-- Bootstrap JS Bundle -->
+
 <script src="jq/jquery-3.7.1.min.js"></script>
+
+<!-- JavaScript to handle the modal functionality -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 <!-- Font Awesome for icons -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
-<script>
-    // Mobile menu toggle
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const navLinks = document.querySelector('.nav-links');
+<!-- SweetAlert2 for notifications -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    mobileMenuButton.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    // Theme toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    const body = document.body;
-
-    // Check for saved theme preference
-    if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-theme');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-theme');
-
-        if (body.classList.contains('dark-theme')) {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'light');
-        }
-    });
-
-    // Add animation to the new order button
-    const newOrderBtn = document.querySelector('.btn-primary');
-    newOrderBtn.addEventListener('mouseenter', () => {
-        newOrderBtn.classList.add('pulse');
-    });
-
-    newOrderBtn.addEventListener('mouseleave', () => {
-        newOrderBtn.classList.remove('pulse');
-    });
-
-    // Responsive data attributes for mobile
-    const addDataAttributes = () => {
-        if (window.innerWidth <= 768) {
-            document.querySelectorAll('.order-row > div').forEach(cell => {
-                const headerText = document.querySelector(`.table-header > div:nth-child(${Array.from(cell.parentNode.children).indexOf(cell) + 1})`).textContent;
-                cell.setAttribute('data-label', headerText);
-            });
-        }
-    };
-
-    // Call on load and window resize
-    window.addEventListener('load', addDataAttributes);
-    window.addEventListener('resize', addDataAttributes);
-
-</script>
 <script src="JavaScript/ManageOrders.js"></script>
+<script src="JavaScript/ManageVehicle.js"></script>
 </body>
 </html>

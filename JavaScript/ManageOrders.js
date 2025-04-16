@@ -1,7 +1,7 @@
+loadallOrders()
 getPendingOrders();
 function getPendingOrders() {
     let userID = localStorage.getItem("LoggedUserId");
-    console.log(userID);
     $.ajax({
         url: "http://localhost:8080/api/v1/orders/pendingOrders", // Your backend endpoint
         method: "GET",
@@ -41,49 +41,119 @@ function getPendingOrders() {
     });
 }
 
-
-$('#Orderbtn').on('click', function () {
-    console.log("order");
-    let userID = localStorage.getItem("LoggedUserId");
-    console.log(userID);
-
-    let pickupPoint = $('#pickupPoint').val();
-    let deliveryAddress = $('#deliveryAddress').val();
-    let vehicleType = $('#vehicleType').val();
-    let reciverContact = $('#ReceiverContact').val();
-    let deliveryDate = $('#deliveryDate').val();
-    let distance = $('#distance').val();
-    let deliveryAmount = $('#deliveryAmount').val();
-    let status = $('#status').val();
-    let priority = $('#priority').val();
+$(document).ready(function () {
+    let loggedUserID = localStorage.getItem("LoggedUserId");
+    console.log("loggedUserID", loggedUserID);
 
     $.ajax({
-        url: "http://localhost:8080/api/v1/orders/save",
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({
-            pickupPoint: pickupPoint,
-            deliveryAddress: deliveryAddress,
-            vehicleType: vehicleType,
-            reciverContact: reciverContact,
-            deliveryDate: deliveryDate,
-            distance: distance,
-            deliveryAmount: deliveryAmount,
-            status: status,
-            priority: priority,
-            customer: {
-                cid: userID
-            }
-        }),
+        url: `http://localhost:8080/api/v1/customer/getPersonalData/${loggedUserID}`,
+        method: "GET",
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("authToken")
         },
         success: function (response) {
-            console.log("Order placed successfully:", response);
-            getPendingOrders();
+            console.log(response);
+
+            const customer = response[0];
+            localStorage.setItem("loggedCustomerId", customer.cid);
+            const loggedCustomerId = customer.cid;
+
+
+            $('#Orderbtn').on('click', function () {
+                console.log("order");
+                let userID = localStorage.getItem("LoggedUserId");
+                console.log(userID);
+
+                let pickupPoint = $('#pickupPoint').val();
+                let deliveryAddress = $('#deliveryAddress').val();
+                let vehicleType = $('#vehicleType').val();
+                let reciverContact = $('#ReceiverContact').val();
+                let deliveryDate = $('#deliveryDate').val();
+                let distance = $('#distance').val();
+                let deliveryAmount = $('#deliveryAmount').val();
+                let status = $('#status').val();
+                let priority = $('#priority').val();
+
+                $.ajax({
+                    url: "http://localhost:8080/api/v1/orders/save",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        pickupPoint: pickupPoint,
+                        deliveryAddress: deliveryAddress,
+                        vehicleType: vehicleType,
+                        receiverContact: reciverContact,
+                        deliveryDate: deliveryDate,
+                        distance: distance,
+                        deliveryAmount: deliveryAmount,
+                        status: status,
+                        priority: priority,
+                        customer: {
+                            cid: loggedCustomerId
+                        }
+                    }),
+                    headers: {
+                        "Authorization": "Bearer " + localStorage.getItem("authToken")
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Your action was completed successfully.',
+                            timer: 2500,
+                            showConfirmButton: false
+                        });
+                        window.location.href = "./CustomerDashBoard.html";
+                        console.log("Order placed successfully:", response);
+                        getPendingOrders();
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong. Please try again!',
+                        });
+                        console.error("Error placing order:", error);
+                    }
+                });
+            })
+
+        }
+        }
+    );
+    loadallOrders();
+})
+
+function loadallOrders() {
+    $.ajax({
+        // url: "http://localhost:8080/api/v1/orders/allOrders",
+        method: "GET",
+        contentType: "application/json",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("authToken")
         },
-        error: function (xhr, status, error) {
-            console.error("Error placing order:", error);
+        success: function (orders) {
+            console.log(orders);
+            $("#orderTable").empty();
+            orders.forEach(order => {
+                $("#orderTable").append(`
+                    <tr>
+                        <td>${order.deliveryAddress}</td>
+                        <td>${order.pickupPoint}</td>
+                        <td>${order.deliveryDate}</td>
+                        <td>${order.deliveryAmount}</td>
+                        <td>${order.distance}</td>
+                        <td>${order.receiverContact}</td>
+                        <td>${order.priority}</td>
+                        <td>${order.vehicleType}</td>
+                        <td>${order.status}</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                `);
+            });
+        },
+        error: function () {
+            alert("Failed to load orders.");
         }
     });
-})
+}

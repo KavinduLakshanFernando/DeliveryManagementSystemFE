@@ -1,5 +1,3 @@
-
-
 $('#registerDriver').on('click', function () {
     let userID = localStorage.getItem("LoggedUserId");
     console.log(userID);
@@ -48,6 +46,7 @@ $('#registerDriver').on('click', function () {
             success: function (response) {
                 console.log(response);
                 alert("Driver registered successfully!");
+                window.location.href = "./OrdersManageDriver.html";
             },
             error: function (xhr, status, error) {
                 console.error(error);
@@ -63,12 +62,16 @@ loadDriverdataForAdmin();
 
 function loadDriverdataForAdmin() {
     console.log("loadDriverdataForAdmin");
-    // let userID = localStorage.getItem("LoggedUserId");
-    // console.log(userID);
     $.ajax({
         url: "http://localhost:8080/api/v1/driver/allDrivers",
         method: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("authToken")
+        },
         success: function (data) {
+
+            console.log("dataaa",data);
+
             $("#driverTableBody").empty();
             data.forEach(driver => {
                 $("#driverTableBody").append(`
@@ -80,7 +83,7 @@ function loadDriverdataForAdmin() {
                         <td>${driver.preferredArea}</td>
                         <td>${driver.licenseClass}</td>
                         <td>${driver.licenseExpiry}</td>
-                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                        <td><button class="delete-btn"  onclick="deleteDriver('${driver.did}')">Delete</button></td>
                     </tr>
                 `);
             });
@@ -90,3 +93,26 @@ function loadDriverdataForAdmin() {
         }
     });
 }
+
+function deleteDriver(did) {
+    if (confirm("Are you sure you want to delete this Driver?")) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/driver/delete/${did}`,
+            method: "DELETE",
+            contentType: "application/json",
+            headers:{
+                "Authorization": "Bearer " + localStorage.getItem("authToken")
+            },
+            success: function(response) {
+                alert("Driver deleted successfully!");
+                loadCustomerdataForAdmin() // refresh table
+            },
+            error: function(xhr, status, error) {
+                alert("Error deleting Driver: " + xhr.responseText);
+            }
+        });
+    }
+}
+
+
+

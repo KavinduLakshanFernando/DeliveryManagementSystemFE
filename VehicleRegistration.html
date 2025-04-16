@@ -318,21 +318,11 @@
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2 class="section-title">Agreement</h2>
-
-                <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
-                        I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
-                    </label>
-                    <span class="error-message">You must agree to the terms to continue</span>
-                </div>
-            </div>
 
             <div class="button-group">
                 <button type="button" class="secondary">Clear Form</button>
-                <button type="button" id="registerDriver" class="primary">Submit Registration</button>
+                <button type="button" id="registerVehicle" class="primary">Submit Registration</button>
+                <button type="button" id="back" class="btn btn-secondary">Back</button>
             </div>
         </div>
     </div>
@@ -342,5 +332,13 @@
 <script src="jq/jquery-3.7.1.min.js"></script>
 
 <script src="JavaScript/UserDetails.js"></script>
+<script src="JavaScript/ManageVehicle.js"></script>
+
+<script>
+    $('#back').on('click', function() {
+        window.location.href = './OrdersManageDriver.html'; // Replace with your target URL or page
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

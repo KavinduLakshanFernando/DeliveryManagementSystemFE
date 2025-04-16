@@ -708,12 +708,12 @@
     <div class="container mt-4">
         <div class="page-header">
             <h4 class="page-title">My Orders</h4>
-                        <button class="btn btn-primary">
+                        <button id="saveOrder" class="btn btn-primary">
                             <i class="fas fa-plus me-2"></i>New Order
                         </button>
         </div>
         <div class="table-container">
-            <table>
+            <table >
                 <thead>
                 <tr>
                     <th>Delivery Address</th>
@@ -794,6 +794,10 @@
     // Call on load and window resize
     window.addEventListener('load', addDataAttributes);
     window.addEventListener('resize', addDataAttributes);
+
+    $('#saveOrder').on('click', function() {
+        window.location.href = './PlaceOrder.html';
+    });
 
 </script>
 <script src="JavaScript/ManageOrders.js"></script>
